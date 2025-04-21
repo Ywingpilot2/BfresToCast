@@ -9,22 +9,22 @@
 
     <ItemGroup>
         <Reference Include="BfresLibrary">
-          <HintPath>..\..\Nintendo\BfresLibrary\BfresLibrary\bin\Debug\netstandard2.0\BfresLibrary.dll</HintPath>
+          <HintPath>ThirdParty\BfresLibrary.dll</HintPath>
         </Reference>
         <Reference Include="Cast.NET">
-          <HintPath>..\..\Cast.NET\src\Cast.NET\bin\Release\net8.0\Cast.NET.dll</HintPath>
+          <HintPath>ThirdParty\Cast.NET.dll</HintPath>
         </Reference>
         <Reference Include="ImageLibrary">
-          <HintPath>..\..\ImageLibrary\bin\Debug\net8.0\ImageLibrary.dll</HintPath>
+          <HintPath>ThirdParty\ImageLibrary.dll</HintPath>
         </Reference>
         <Reference Include="Syroot.BinaryData">
-          <HintPath>..\..\Nintendo\BfresLibrary\Libraries\Syroot.BinaryData.dll</HintPath>
+          <HintPath>ThirdParty\Syroot.BinaryData.dll</HintPath>
         </Reference>
         <Reference Include="Syroot.Maths">
-          <HintPath>..\..\Nintendo\BfresLibrary\Libraries\Syroot.Maths.dll</HintPath>
+          <HintPath>ThirdParty\Syroot.Maths.dll</HintPath>
         </Reference>
         <Reference Include="Syroot.NintenTools.NSW.Bntx">
-          <HintPath>..\..\Nintendo\BfresLibrary\Libraries\Syroot.NintenTools.NSW.Bntx.dll</HintPath>
+          <HintPath>ThirdParty\Syroot.NintenTools.NSW.Bntx.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
