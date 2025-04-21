@@ -404,3 +404,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/BfresToCast/ThirdParty/BfresLibrary.xml
+/BfresToCast/ThirdParty/Syroot.Maths.xml
+/BfresToCast/ThirdParty/Syroot.NintenTools.NSW.Bntx.xml
