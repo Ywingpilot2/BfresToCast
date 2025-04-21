@@ -23,7 +23,7 @@ public class Program
     /// A simplified interface to <see cref="BfresLibrary.Shape"/> with all the buffers exposed as lists.
     /// Also contains additional features such as <see cref="VertexInfos"/> and basic enumeration features.
     /// </summary>
-    record RawShapeInfo(List<Vector3> Verticies, List<Vector3> Normals, List<Vector4> Tangents, Dictionary<byte, List<Vector2>> Uvs, List<int> Indicies, List<Vector4> BlendIndices, List<Vector4> BlendWeights, Dictionary<byte, List<Color>> VertexColors, Shape Shape)
+    record RawShapeInfo(List<Vector3> Verticies, List<Vector3> Normals, List<Vector4> Tangents, Dictionary<byte, List<Vector2>> Uvs, List<int> Indicies, List<Vector4> BlendIndices, List<Vector4> BlendWeights, Dictionary<byte, List<Vector4>> VertexColors, Shape Shape)
     {
         /// <summary>
         /// A list of all the compiled Verticies. Each vertex info has most of the important information about a vertex.
@@ -42,14 +42,14 @@ public class Program
 
 
         public Dictionary<byte, List<Vector2>> Uvs { get; set; } = Uvs;
-        public Dictionary<byte, List<Color>> VertexColors { get; set; } = VertexColors;
+        public Dictionary<byte, List<Vector4>> VertexColors { get; set; } = VertexColors;
 
         public List<Vector4> BlendIndices { get; set; } = BlendIndices;
         public List<Vector4> BlendWeights { get; set; } = BlendWeights;
 
 
         public RawShapeInfo(Shape shape) : this(new List<Vector3>(), new List<Vector3>(), new List<Vector4>(),
-            new Dictionary<byte, List<Vector2>>(), new List<int>(), new List<Vector4>(), new List<Vector4>(), new Dictionary<byte, List<Color>>(), shape)
+            new Dictionary<byte, List<Vector2>>(), new List<int>(), new List<Vector4>(), new List<Vector4>(), new Dictionary<byte, List<Vector4>>(), shape)
         {
         }
 
@@ -143,6 +143,7 @@ public class Program
 
             foreach (SwitchTexture tex in modelRes.Textures.Values)
             {
+                break; // TODO: REMOVE ME!
                 if (tex.ArrayLength != 1)
                 {
                     flagArrayErr = true;
@@ -229,16 +230,9 @@ public class Program
                     meshNode.AddValue("cl", (byte)rawShape.VertexColors.Count);
 
                     i = 0;
-                    foreach (KeyValuePair<byte, List<Color>> vertexColor in rawShape.VertexColors)
+                    foreach (KeyValuePair<byte, List<Vector4>> vertexColor in rawShape.VertexColors)
                     {
-                        meshNode.AddArray($"c{i}", vertexColor.Value.Select(color =>
-                        {
-                            byte r = (byte)(color.R * 255);
-                            byte g = (byte)(color.G * 255);
-                            byte b = (byte)(color.B * 255);
-                            byte a = (byte)(color.A * 255);
-                            return BitConverter.ToUInt32(new byte[] { r, g, b, a }, 0);
-                        }));
+                        meshNode.AddArray($"c{i}", vertexColor.Value);
                         i++;
                     }
 
@@ -624,9 +618,9 @@ public class Program
                         {
                             byte color = byte.Parse(attribute.Name[2..]);
                             if (!rawShape.VertexColors.ContainsKey(color))
-                                rawShape.VertexColors.Add(color, new List<Color>());
+                                rawShape.VertexColors.Add(color, new List<Vector4>());
 
-                            rawShape.VertexColors[color].AddRange(attribute.Data.Select(f => Color.FromArgb((int)f.W, (int)f.X, (int)f.Y, (int)f.Z)));
+                            rawShape.VertexColors[color].AddRange(attribute.Data.Select(f => new Vector4(f.X, f.Y, f.Z, f.W)));
                         }
                     }
                     break;
