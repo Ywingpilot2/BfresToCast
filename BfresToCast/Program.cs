@@ -119,7 +119,7 @@ public class Program
         foreach (string file in args)
         {
             MemoryStream stream = new MemoryStream();
-            if (Path.GetExtension(file) == ".zs" || Path.GetExtension(file) == ".zstd")
+            if (Path.GetExtension(file) == ".zs" || Path.GetExtension(file) == ".zstd" || Path.GetExtension(file) == ".zst") //TODO: Check for zstd header instead of extension
             {
                 Decompressor decompressor = new Decompressor();
                 stream = new MemoryStream(decompressor.Unwrap(File.ReadAllBytes(file)));
