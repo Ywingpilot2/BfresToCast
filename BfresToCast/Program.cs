@@ -143,7 +143,6 @@ public class Program
 
             foreach (SwitchTexture tex in modelRes.Textures.Values)
             {
-                break; // TODO: REMOVE ME!
                 if (tex.ArrayLength != 1)
                 {
                     flagArrayErr = true;
