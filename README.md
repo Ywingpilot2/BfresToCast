@@ -5,9 +5,9 @@ Usage:
 Drag and drop BFRES files onto the executable or set up a file association.
 
 ## Support
-✔️ Uncompressed files
-✔️ Zstd compressed files (.bfres.zs)
-❌ SARC or Yaz0 packed files (.pack, .szs, .sbfres), these must have the bfres extracted first before the tool can be used.
+- ✔️ Uncompressed files
+- ✔️ Zstd compressed files (.bfres.zs)
+- ❌ SARC or Yaz0 packed files (.pack, .szs, .sbfres), these must have the bfres extracted first before the tool can be used.
 
 ## Tested with:
 - Splatoon 2 (.bfres extracted from .szs container, works)
