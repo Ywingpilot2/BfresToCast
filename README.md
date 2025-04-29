@@ -13,7 +13,7 @@ Drag and drop BFRES files onto the executable or set up a file association.
 - Splatoon 2 (.bfres extracted from .szs container, works)
 - Splatoon 3 (.bfres.zs, works)
 - Paper Mario TTYD (.bfres.zst, works)
-- Mario Wonder (does not work, will look into)
+- Mario Wonder (.bfres.zs, works)
 - Tears of the Kingdom (does not work, requires external strings file, may not support)
 
 ## BfresToCast makes use of the following:
