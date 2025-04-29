@@ -470,6 +470,13 @@ public class Program
     /// <param name="model"></param>
     static void ConsumeSkin(SkeletonNode skeleton, Model model)
     {
+        //check scaling mode used for the skeleton
+        byte segmentScaleCompensate = 1;
+        if (model.Skeleton.FlagsScaling == SkeletonFlagsScaling.None || model.Skeleton.FlagsScaling == SkeletonFlagsScaling.Standard)
+        {
+            segmentScaleCompensate = 0;
+        }
+
         foreach (Bone bone in model.Skeleton.BoneList)
         {
             BoneNode boneNode = skeleton.AddNode<BoneNode>();
@@ -482,6 +489,7 @@ public class Program
 
             boneNode.AddValue("wp", Vector3.Transform(Vector3.Zero, worldMatrix));
             boneNode.AddValue("wr", new Vector4(worldRotation.X, worldRotation.Y, worldRotation.Z, worldRotation.W));
+            boneNode.AddValue("ssc", segmentScaleCompensate);
         }
 
         skeleton.CalculateLocalTransforms();
