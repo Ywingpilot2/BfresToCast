@@ -643,8 +643,4 @@ public class Program
         rawShape.CreateVertexInfos();
         return rawShape;
     }
-
-
-    [DllImport("tegra_swizzle_x64", EntryPoint = "test")]
-    private static extern ulong Test(uint t);
 }
