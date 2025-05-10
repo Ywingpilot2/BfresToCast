@@ -168,7 +168,7 @@ public class Program
 
                 if (TextureUtils.IsFloat(tex.Format))
                 {
-                    TextureUtils.ToDDS(tex, encoder, deswizzled, $"{texDir}{Path.DirectorySeparatorChar}{tex.Name}.dds");
+                    TextureUtils.ToDDS(tex, encoder, deswizzled, $"{texDir}/{tex.Name}.dds");
                     Console.WriteLine($"Saved texture {tex.Name}");
                 }
                 else
@@ -176,7 +176,7 @@ public class Program
                     var rgba = encoder.Decode(deswizzled, tex.Width, tex.Height);
                     rgba = TextureUtils.ConvertChannels(rgba, tex);
                     var img = Image.LoadPixelData<Rgba32>(rgba, (int)tex.Width, (int)tex.Height);
-                    img.SaveAsPng($"{texDir}{Path.DirectorySeparatorChar}{tex.Name}.png");
+                    img.SaveAsPng($"{texDir}/{tex.Name}.png");
                     Console.WriteLine($"Saved texture {tex.Name}");
                 }
             }
