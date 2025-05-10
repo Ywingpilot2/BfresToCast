@@ -187,6 +187,9 @@ public class Program
                 ModelNode modelNode = root.AddNode<ModelNode>();
                 SkeletonNode skeletonNode = modelNode.AddNode<SkeletonNode>();
                 ConsumeSkin(skeletonNode, model);
+                Quaternion rot = Quaternion.CreateFromRotationMatrix(Matrix4x4.CreateRotationX(1.5708f));
+                modelNode.AddValue("r", new Vector4(rot.X, rot.Y, rot.Z, rot.W));
+                
                 List<ulong> materialHashes = ConsumeMaterials(model, modelNode);
 
                 foreach (Shape shape in model.Shapes.Values)
