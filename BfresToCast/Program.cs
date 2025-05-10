@@ -1,4 +1,6 @@
 using System.Numerics;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using BfresLibrary;
 using BfresLibrary.Helpers;
 using BfresLibrary.Switch;
@@ -93,6 +95,8 @@ public class Program
 
     static void Main(string[] args)
     {
+        
+        
         // this is a super niche use case, this is just for if the user opens the exe instead of drag-dropping files onto it
         // useful for debugging the program
         if (args.Length == 0)
@@ -131,8 +135,8 @@ public class Program
             ResFile modelRes = new ResFile(stream);
             FileInfo fileInfo = new FileInfo(file);
             // This is stupid, Bezel engine bfres uses the fmdb extension and the name inside the bfres has it too...
-            string dir = $@"{fileInfo.DirectoryName}\{Path.GetFileNameWithoutExtension(modelRes.Name)}";
-            string texDir = $@"{dir}\Textures";
+            string dir = $"{fileInfo.DirectoryName}{Path.DirectorySeparatorChar}{Path.GetFileNameWithoutExtension(modelRes.Name)}";
+            string texDir = $"{dir}{Path.DirectorySeparatorChar}Textures";
             Directory.CreateDirectory(dir);
             if (modelRes.Textures.Count != 0)
             {
@@ -159,7 +163,6 @@ public class Program
                 var bpp = encoder.BitsPerPixel;
 
                 var blk_sizes = (bw, bh, bd);
-
                 var deswizzled = TextureConverter.Deswizzle(tex.Width, tex.Height, tex.Depth,
                     1, tex.MipCount, blk_sizes, bpp, (uint)tex.Texture.TileMode, data);
 
@@ -258,7 +261,7 @@ public class Program
                     }
                 }
 
-                CastWriter.Save($@"{dir}\{model.Name}.cast", root);
+                CastWriter.Save($"{dir}{Path.DirectorySeparatorChar}{model.Name}.cast", root);
                 Console.WriteLine($"Saved model {model.Name}");
             }
 
