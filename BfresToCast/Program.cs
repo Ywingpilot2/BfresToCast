@@ -141,41 +141,48 @@ public class Program
 
             Console.WriteLine($"Processing {modelRes.Name}...");
 
-            foreach (SwitchTexture tex in modelRes.Textures.Values)
+            if (modelRes.IsPlatformSwitch)
             {
-                if (tex.ArrayLength != 1)
+                foreach (SwitchTexture tex in modelRes.Textures.Values)
                 {
-                    flagArrayErr = true;
-                    Console.WriteLine($"Skipping texture {tex.Name}, Arrays are not supported at this time.");
-                    continue;
+                    if (tex.ArrayLength != 1)
+                    {
+                        flagArrayErr = true;
+                        Console.WriteLine($"Skipping texture {tex.Name}, Arrays are not supported at this time.");
+                        continue;
+                    }
+
+                    var data = tex.GetSwizzledData();
+                    var encoder = TextureUtils.FormatList[(int)tex.Format];
+
+                    var bw = ImageFormats.GetBlockWidth(encoder);
+                    var bh = ImageFormats.GetBlockHeight(encoder);
+                    var bd = ImageFormats.GetBlockDepth(encoder);
+                    var bpp = encoder.BitsPerPixel;
+
+                    var blk_sizes = (bw, bh, bd);
+
+                    var deswizzled = TextureConverter.Deswizzle(tex.Width, tex.Height, tex.Depth,
+                        1, tex.MipCount, blk_sizes, bpp, (uint)tex.Texture.TileMode, data);
+
+                    if (TextureUtils.IsHDR(tex.Format))
+                    {
+                        TextureUtils.ToDDS(tex, encoder, deswizzled, $"{texDir}/{tex.Name}.dds");
+                        Console.WriteLine($"Saved texture {tex.Name}");
+                    }
+                    else
+                    {
+                        var rgba = encoder.Decode(deswizzled, tex.Width, tex.Height);
+                        rgba = TextureUtils.ConvertChannels(rgba, tex);
+                        var img = Image.LoadPixelData<Rgba32>(rgba, (int)tex.Width, (int)tex.Height);
+                        img.SaveAsPng($"{texDir}/{tex.Name}.png");
+                        Console.WriteLine($"Saved texture {tex.Name}");
+                    }
                 }
-
-                var data = tex.GetSwizzledData();
-                var encoder = TextureUtils.FormatList[(int)tex.Format];
-
-                var bw = ImageFormats.GetBlockWidth(encoder);
-                var bh = ImageFormats.GetBlockHeight(encoder);
-                var bd = ImageFormats.GetBlockDepth(encoder);
-                var bpp = encoder.BitsPerPixel;
-
-                var blk_sizes = (bw, bh, bd);
-
-                var deswizzled = TextureConverter.Deswizzle(tex.Width, tex.Height, tex.Depth,
-                    1, tex.MipCount, blk_sizes, bpp, (uint)tex.Texture.TileMode, data);
-
-                if (TextureUtils.IsFloat(tex.Format))
-                {
-                    TextureUtils.ToDDS(tex, encoder, deswizzled, $"{texDir}/{tex.Name}.dds");
-                    Console.WriteLine($"Saved texture {tex.Name}");
-                }
-                else
-                {
-                    var rgba = encoder.Decode(deswizzled, tex.Width, tex.Height);
-                    rgba = TextureUtils.ConvertChannels(rgba, tex);
-                    var img = Image.LoadPixelData<Rgba32>(rgba, (int)tex.Width, (int)tex.Height);
-                    img.SaveAsPng($"{texDir}/{tex.Name}.png");
-                    Console.WriteLine($"Saved texture {tex.Name}");
-                }
+            }
+            else
+            {
+                Console.WriteLine("Wii U textures are unsupported at this time.");
             }
 
             foreach (Model model in modelRes.Models.Values)
