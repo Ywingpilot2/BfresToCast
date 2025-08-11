@@ -15,6 +15,7 @@ public static class TextureUtils
         { (int)SurfaceFormat.R8_UNORM, ImageFormats.R8() },
         { (int)SurfaceFormat.R16_UNORM, ImageFormats.R16() },
         { (int)SurfaceFormat.R16_UINT, ImageFormats.R16() },
+        { (int)SurfaceFormat.R16_FLOAT, ImageFormats.R16() },
         { (int)SurfaceFormat.R32_UNORM, ImageFormats.R32() },
         { (int)SurfaceFormat.R32_G32_B32_A32_UNORM, ImageFormats.Rgba32() },
 
@@ -74,13 +75,16 @@ public static class TextureUtils
         { (int)SurfaceFormat.ASTC_12x12_SRGB,  ImageFormats.Astc12x12(true) },
     };
 
-    public static bool IsFloat(SurfaceFormat fmt)
+    public static bool IsHDR(SurfaceFormat fmt)
     {
-        switch (fmt)
+        string fmtName = fmt.ToString();
+        if (fmtName.Contains("FLOAT") || fmtName.Contains("INT"))
         {
-            case SurfaceFormat.BC6_FLOAT: return true;
-            case SurfaceFormat.BC6_UFLOAT: return true;
-            default: return false;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
