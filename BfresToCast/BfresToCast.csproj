@@ -58,10 +58,10 @@
       <None Update="tegra_swizzle_x64.so">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="ThirdParty\libzstd.so">
+      <None Update="tegra_swizzle_x86.so">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="tegra_swizzle_x86.so">
+      <None Update="libzstd.so">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
