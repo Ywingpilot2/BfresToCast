@@ -176,7 +176,7 @@ public class Program
                         var rgba = encoder.Decode(deswizzled, tex.Width, tex.Height);
                         rgba = TextureUtils.ConvertChannels(rgba, tex);
                         var img = Image.LoadPixelData<Rgba32>(rgba, (int)tex.Width, (int)tex.Height);
-                        img.SaveAsPng($"{texDir}/{tex.Name}.png");
+                        img.SaveAsPng($"{texDir}{sp}{tex.Name}.png");
                         Console.WriteLine($"Saved texture {tex.Name}");
                     }
                 }
