@@ -94,6 +94,8 @@ public class Program
     {
         // this is a super niche use case, this is just for if the user opens the exe instead of drag-dropping files onto it
         // useful for debugging the program
+        char sp = Path.DirectorySeparatorChar;
+        
         if (args.Length == 0)
         {
             string? path;
@@ -130,8 +132,8 @@ public class Program
             ResFile modelRes = new ResFile(stream);
             FileInfo fileInfo = new FileInfo(file);
             // This is stupid, Bezel engine bfres uses the fmdb extension and the name inside the bfres has it too...
-            string dir = $"{fileInfo.DirectoryName}{Path.DirectorySeparatorChar}{Path.GetFileNameWithoutExtension(modelRes.Name)}";
-            string texDir = $"{dir}{Path.DirectorySeparatorChar}Textures";
+            string dir = $"{fileInfo.DirectoryName}{sp}{Path.GetFileNameWithoutExtension(modelRes.Name)}";
+            string texDir = $"{dir}{sp}Textures";
             Directory.CreateDirectory(dir);
             if (modelRes.Textures.Count != 0)
             {
@@ -264,7 +266,7 @@ public class Program
                     }
                 }
 
-                CastWriter.Save($"{dir}{Path.DirectorySeparatorChar}{model.Name}.cast", root);
+                CastWriter.Save($"{dir}{sp}{model.Name}.cast", root);
                 Console.WriteLine($"Saved model {model.Name}");
             }
 
