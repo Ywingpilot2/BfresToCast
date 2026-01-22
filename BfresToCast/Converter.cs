@@ -24,14 +24,13 @@ namespace BfresToCast
 {
     public class Converter
     {
-
         public static void Convert(ResFile modelRes, string currentFile, bool isSARCFile, out bool flagArrayErr)
         {
             string dir = "";
             if (!isSARCFile)
             {
                 // This is stupid, Bezel engine bfres uses the fmdb extension and the name inside the bfres has it too...
-                dir = $@"{Path.GetDirectoryName(currentFile)}\{Path.GetFileNameWithoutExtension(modelRes.Name)}";
+                dir = $@"{Path.GetDirectoryName(currentFile)}/{Path.GetFileNameWithoutExtension(modelRes.Name)}";
             }
             else
             {
@@ -43,11 +42,11 @@ namespace BfresToCast
                 }
                 else
                 {
-                    dir = $@"{Path.GetDirectoryName(currentFile)}\{modelRes.Name}";
+                    dir = $@"{Path.GetDirectoryName(currentFile)}/{modelRes.Name}";
                 }
             }
 
-            string texDir = $@"{dir}\Textures";
+            string texDir = $@"{dir}/Textures";
             if (modelRes.Models.Count > 0)
             {
                 Directory.CreateDirectory(dir);
@@ -186,7 +185,7 @@ namespace BfresToCast
                     }
                 }
 
-                CastWriter.Save($@"{dir}\{model.Name}.cast", root);
+                CastWriter.Save($@"{dir}/{model.Name}.cast", root);
                 Console.WriteLine($"Saved model {model.Name}");
             }
         }
