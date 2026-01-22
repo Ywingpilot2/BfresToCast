@@ -2,10 +2,11 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <ApplicationIcon>Icon\Bfres.ico</ApplicationIcon>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
@@ -45,6 +46,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="BCnEncoder.Net" Version="2.1.0" />
+        <PackageReference Include="SarcLibrary" Version="3.3.4" />
         <PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
         <PackageReference Include="ZstdNet" Version="1.4.5" />
     </ItemGroup>

@@ -2,7 +2,7 @@
 using Syroot.Maths;
 using Vector3 = System.Numerics.Vector3;
 
-namespace BFResToCast;
+namespace BfresToCast.Utils;
 
 public static class VectorExtensions
 {
