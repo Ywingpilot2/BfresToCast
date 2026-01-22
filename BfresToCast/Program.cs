@@ -17,7 +17,7 @@ public class Program
             while (true)
             {
                 Console.WriteLine("Please input the path to the input file to convert.");
-                path = Console.ReadLine();
+                path = Console.ReadLine().Trim('"');
                 if (path == "exit")
                     return;
 
