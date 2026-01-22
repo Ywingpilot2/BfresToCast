@@ -2,15 +2,16 @@
 Simple program to extract Nintendo BFRES models to [Cast](https://github.com/dtzxporter/cast) and textures to PNG (or DDS if HDR)
 
 Usage:
-Drag and drop BFRES files onto the executable or set up a file association.
+Drag and drop BFRES or SARC files that contain BFRES onto the executable or set up a file association.
 
 ## Support
 - ✔️ Uncompressed files
 - ✔️ Zstd compressed files (.bfres.zs)
-- ❌ SARC or Yaz0 packed files (.pack, .szs, .sbfres), these must have the bfres extracted first before the tool can be used.
+- ✔️ SARC or Yaz0 packed files (.pack, .szs, .sbfres)
 
 ## Tested with:
-- Splatoon 2 (.bfres extracted from .szs container, works)
+- Splatoon 1 (.Pack, .szs, works)
+- Splatoon 2 (.szs, works)
 - Splatoon 3 (.bfres.zs, works)
 - Paper Mario TTYD (.bfres.zst, works)
 - Mario Wonder (.bfres.zs, works)
@@ -22,7 +23,8 @@ Drag and drop BFRES files onto the executable or set up a file association.
 - [BCnEncoder.Net](https://github.com/Nominom/BCnEncoder.NET)
 - [SixLabors ImageSharp](https://github.com/SixLabors/ImageSharp)
 - [BfresLibrary](https://github.com/KillzXGaming/BfresLibrary)
-- ImageLibrary KillzXGaming(Unpublished)
+- ImageLibrary by [KillzXGaming](https://github.com/KillzXGaming)(Unpublished)
+- [SarcLibrary](https://github.com/EPD-Libraries/SarcLibrary)
 - [Syroot BinaryData](https://gitlab.com/Syroot/BinaryData)
 - [Syroot Maths](https://gitlab.com/Syroot/Maths)
 - [Syroot NintenTools NSW Bntx](https://github.com/KillzXGaming/LegacySwitchLibraries)

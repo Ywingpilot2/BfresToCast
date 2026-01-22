@@ -2,7 +2,7 @@ using BfresLibrary.Switch;
 using ImageLibrary;
 using Syroot.NintenTools.NSW.Bntx.GFX;
 
-namespace BfresToCast;
+namespace BfresToCast.Utils;
 
 public static class TextureUtils
 {
@@ -172,9 +172,9 @@ public static class TextureUtils
             dds.Dx10Header = new DDS.DX10Header();
             dds.Dx10Header.ResourceDim = 3;
             if (isCubemap)
-                dds.Dx10Header.ArrayCount = (uint)(tex.ArrayLength / 6);
+                dds.Dx10Header.ArrayCount = tex.ArrayLength / 6;
             else
-                dds.Dx10Header.ArrayCount = (uint)tex.ArrayLength;
+                dds.Dx10Header.ArrayCount = tex.ArrayLength;
             dds.Dx10Header.DxgiFormat = (uint)format;
         }
         dds.Save(path);
