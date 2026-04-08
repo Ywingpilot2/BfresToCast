@@ -7,6 +7,7 @@ using Cast.NET.Nodes;
 using ImageLibrary;
 using ImageLibrary.Imaging.Switch;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
@@ -89,10 +90,24 @@ namespace BfresToCast
                         TextureUtils.ToDDS(tex, encoder, deswizzled, $"{texDir}/{tex.Name}.dds");
                         Console.WriteLine($"Saved texture {tex.Name}");
                     }
+                    else if (TextureUtils.IsGrayscale(tex.Format))
+                    {
+                        var png_encoder = new PngEncoder
+                        {
+                            BitDepth = PngBitDepth.Bit8,
+                            ColorType = PngColorType.Grayscale,
+                        };
+                        var rgba = encoder.Decode(deswizzled, tex.Width, tex.Height);
+                        var r = rgba.Where((x, i) => i % 4 == 0).ToArray();
+                        var img = Image.LoadPixelData<SixLabors.ImageSharp.PixelFormats.L8>(r, (int)tex.Width, (int)tex.Height);
+                        img.SaveAsPng($"{texDir}/{tex.Name}.png", png_encoder);
+                        Console.WriteLine($"Saved grayscale texture {tex.Name}");
+                    }
                     else
                     {
                         var rgba = encoder.Decode(deswizzled, tex.Width, tex.Height);
-                        rgba = TextureUtils.ConvertChannels(rgba, tex);
+                        if (!TextureUtils.IsNrm(tex))
+                            rgba = TextureUtils.ConvertChannels(rgba, tex);
                         var img = Image.LoadPixelData<Rgba32>(rgba, (int)tex.Width, (int)tex.Height);
                         img.SaveAsPng($"{texDir}/{tex.Name}.png");
                         Console.WriteLine($"Saved texture {tex.Name}");
