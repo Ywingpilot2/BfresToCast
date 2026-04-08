@@ -88,6 +88,23 @@ public static class TextureUtils
         }
     }
 
+    public static bool IsNrm(SwitchTexture tex)
+    {
+        return new[] {
+            SurfaceFormat.BC5_UNORM, SurfaceFormat.BC5_SNORM,
+            SurfaceFormat.R8_G8_UNORM, SurfaceFormat.R8_G8_SNORM, SurfaceFormat.R4_G4_UNORM
+        }.Contains(tex.Format) && tex.Texture.ChannelBlue == ChannelType.Zero;
+    }
+
+
+    public static bool IsGrayscale(SurfaceFormat fmt)
+    {
+        return new[] {
+            SurfaceFormat.BC4_UNORM, SurfaceFormat.BC4_SNORM,
+            SurfaceFormat.R8_UNORM, SurfaceFormat.R16_UNORM, SurfaceFormat.R32_UNORM
+        }.Contains(fmt);
+    }
+
     public static byte[] ConvertChannels(byte[] data, SwitchTexture tex)
     {
         byte[] rgba = new byte[data.Length];
