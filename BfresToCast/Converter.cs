@@ -30,7 +30,7 @@ namespace BfresToCast
             if (!isSARCFile)
             {
                 // This is stupid, Bezel engine bfres uses the fmdb extension and the name inside the bfres has it too...
-                dir = $@"{Path.GetDirectoryName(currentFile)}/{Path.GetFileNameWithoutExtension(modelRes.Name)}";
+                dir = Path.Combine(Path.GetDirectoryName(currentFile), Path.GetFileNameWithoutExtension(modelRes.Name));
             }
             else
             {
@@ -42,11 +42,11 @@ namespace BfresToCast
                 }
                 else
                 {
-                    dir = $@"{Path.GetDirectoryName(currentFile)}/{modelRes.Name}";
+                    dir = Path.Combine(Path.GetDirectoryName(currentFile), modelRes.Name);
                 }
             }
 
-            string texDir = $@"{dir}/Textures";
+            string texDir = Path.Combine(dir, "Textures");
             if (modelRes.Models.Count > 0)
             {
                 Directory.CreateDirectory(dir);
@@ -86,7 +86,7 @@ namespace BfresToCast
 
                     if (TextureUtils.IsHDR(tex.Format))
                     {
-                        TextureUtils.ToDDS(tex, encoder, deswizzled, $"{texDir}/{tex.Name}.dds");
+                        TextureUtils.ToDDS(tex, encoder, deswizzled, Path.Combine(texDir, Path.ChangeExtension(tex.Name, ".dds")));
                         Console.WriteLine($"Saved texture {tex.Name}");
                     }
                     else
@@ -94,7 +94,7 @@ namespace BfresToCast
                         var rgba = encoder.Decode(deswizzled, tex.Width, tex.Height);
                         rgba = TextureUtils.ConvertChannels(rgba, tex);
                         var img = Image.LoadPixelData<Rgba32>(rgba, (int)tex.Width, (int)tex.Height);
-                        img.SaveAsPng($"{texDir}/{tex.Name}.png");
+                        img.SaveAsPng(Path.Combine(texDir, Path.ChangeExtension(tex.Name, ".png")));
                         Console.WriteLine($"Saved texture {tex.Name}");
                     }
                 }
@@ -185,7 +185,7 @@ namespace BfresToCast
                     }
                 }
 
-                CastWriter.Save($@"{dir}/{model.Name}.cast", root);
+                CastWriter.Save(Path.Combine(dir, Path.ChangeExtension(model.Name, ".cast")), root);
                 Console.WriteLine($"Saved model {model.Name}");
             }
         }
